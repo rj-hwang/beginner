@@ -8,16 +8,16 @@ import javax.ws.rs.core.MediaType;
 
 @Path("hello")
 public class HelloResource {
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getHello() {
-        return "Hello!";
-    }
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getHello() {
+		return "Hello!";
+	}
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("{name}")
-    public String getHello(@PathParam("name") String name) {
-        return "Hello " + name + "!";
-    }
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("{name}")
+	public String getHello(@PathParam("name") String name) {
+		return "Hello " + name + "!";
+	}
 }

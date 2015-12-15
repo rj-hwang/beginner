@@ -16,37 +16,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class TestUserResource {
-    private HttpServer server;
-    private WebTarget target;
+	private HttpServer server;
+	private WebTarget target;
 
-    @Before
-    public void setUp() throws Exception {
-        server = JdkServer.startServer();
+	@Before
+	public void setUp() throws Exception {
+		server = JdkServer.startServer();
 
-        Client c = ClientBuilder.newClient();
-        target = c.target(JdkServer.BASE_URI);
-    }
+		Client c = ClientBuilder.newClient();
+		target = c.target(JdkServer.BASE_URI);
+	}
 
-    @After
-    public void tearDown() throws Exception {
-        server.stop(0);
-    }
+	@After
+	public void tearDown() throws Exception {
+		server.stop(0);
+	}
 
-    @Test
-    public void _404() {
-        Response r = target.path("404").request().get();
-        assertNotNull(r);
-        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), r.getStatus());
-    }
+	@Test
+	public void _404() {
+		Response r = target.path("404").request().get();
+		assertNotNull(r);
+		assertEquals(Response.Status.NOT_FOUND.getStatusCode(), r.getStatus());
+	}
 
-    @Test
-    public void getById() {
-        Response r = target.path("users/1").request(MediaType.APPLICATION_JSON).get();
-        assertNotNull(r);
-        assertEquals(Response.Status.OK.getStatusCode(), r.getStatus());
+	@Test
+	public void getById() {
+		Response r = target.path("users/1").request(MediaType.APPLICATION_JSON).get();
+		assertNotNull(r);
+		assertEquals(Response.Status.OK.getStatusCode(), r.getStatus());
 
-        String user = r.readEntity(String.class);
-        assertNotNull(user);
-        System.out.println(user);
-    }
+		String user = r.readEntity(String.class);
+		assertNotNull(user);
+		System.out.println(user);
+	}
 }

@@ -11,22 +11,22 @@ import javax.ws.rs.core.Response;
 
 @Path("users")
 public class UserResource {
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Response get(@PathParam("id") Long id) {
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public Response get(@PathParam("id") Long id) {
 //        User user = new User() {{
 //            setId(id);
 //            setCode("dragon" + id);
 //            setName("测试员" + id);
 //        }};
-        User user = new User();
-        user.setId(id);
-        user.setCode("dragon" + id);
-        user.setName("测试员" + id);
+		User user = new User();
+		user.setId(id);
+		user.setCode("dragon" + id);
+		user.setName("测试员" + id);
 
-        return Response.status(Response.Status.OK)
-                .entity(new Genson().serialize(user))
-                .build();
-    }
+		return Response.status(Response.Status.OK)
+				.entity(new Genson().serialize(user))
+				.build();
+	}
 }

@@ -15,38 +15,38 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class TestItByGrizzly {
-    private HttpServer server;
-    private WebTarget target;
+	private HttpServer server;
+	private WebTarget target;
 
-    @Before
-    public void setUp() throws Exception {
-        server = GrizzlyServer.startServer();
+	@Before
+	public void setUp() throws Exception {
+		server = GrizzlyServer.startServer();
 
-        Client c = ClientBuilder.newClient();
-        target = c.target(GrizzlyServer.BASE_URI);
-    }
+		Client c = ClientBuilder.newClient();
+		target = c.target(GrizzlyServer.BASE_URI);
+	}
 
-    @After
-    public void tearDown() throws Exception {
-        server.shutdownNow();
-    }
+	@After
+	public void tearDown() throws Exception {
+		server.shutdownNow();
+	}
 
-    @Test
-    public void _404() {
-        Response r = target.path("404").request().get();
-        assertNotNull(r);
-        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), r.getStatus());
-    }
+	@Test
+	public void _404() {
+		Response r = target.path("404").request().get();
+		assertNotNull(r);
+		assertEquals(Response.Status.NOT_FOUND.getStatusCode(), r.getStatus());
+	}
 
-    @Test
-    public void hello() {
-        String responseMsg = target.path("hello").request().get(String.class);
-        assertEquals("Hello!", responseMsg);
-    }
+	@Test
+	public void hello() {
+		String responseMsg = target.path("hello").request().get(String.class);
+		assertEquals("Hello!", responseMsg);
+	}
 
-    @Test
-    public void helloDragon() {
-        String responseMsg = target.path("hello/dragon").request().get(String.class);
-        assertEquals("Hello dragon!", responseMsg);
-    }
+	@Test
+	public void helloDragon() {
+		String responseMsg = target.path("hello/dragon").request().get(String.class);
+		assertEquals("Hello dragon!", responseMsg);
+	}
 }
