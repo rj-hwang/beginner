@@ -21,7 +21,13 @@
 - [Spring Rest](https://spring.io/understanding/REST)
 
 #### 相关教程
+- [IBM: 用 Java 技术创建 RESTful Web 服务](https://www.ibm.com/developerworks/cn/web/wa-jaxrs/)
+- [OnlineBook: RESTful Java with JAX-RS 2.0, 2nd Edition](https://dennis-xlc.gitbooks.io/restful-java-with-jax-rs-2-0-2rd-edition/content/cn/index.html)
+- [RESTful Web 服务教程](http://wiki.jikexueyuan.com/project/restful/)
+- [Book: 网盘分享的一堆书](http://pan.baidu.com/s/1mgRjove)
 - [Jersey Getting Started](https://jersey.java.net/documentation/latest/getting-started.html)
+- [Jersey Test Framework](https://jersey.java.net/documentation/latest/test-framework.html)
+- [Jersey 官方例子源代码](https://github.com/jersey/jersey/tree/2.22.1/examples)
 
 #### 友情链接
 - 2013-06-30 [What's New in JAX-RS 2.0?](http://www.infoq.com/news/2013/06/Whats-New-in-JAX-RS-2.0)
@@ -33,3 +39,5 @@
 - [Spring Session - REST](http://docs.spring.io/spring-session/docs/current/reference/html5/guides/rest.html)
 - [Undertow](http://undertow.io/)
 - [Netty系列之Netty高性能之道](http://www.infoq.com/cn/articles/netty-high-performance)
+- [URL matrix parameters vs. request parameters](http://stackoverflow.com/questions/2048121/url-matrix-parameters-vs-request-parameters)
+- [InfoQ: Spring MVC与JAX-RS比较与分析](http://www.infoq.com/cn/articles/springmvc_jsx-rs)
