@@ -41,3 +41,4 @@
 - [Netty系列之Netty高性能之道](http://www.infoq.com/cn/articles/netty-high-performance)
 - [URL matrix parameters vs. request parameters](http://stackoverflow.com/questions/2048121/url-matrix-parameters-vs-request-parameters)
 - [InfoQ: Spring MVC与JAX-RS比较与分析](http://www.infoq.com/cn/articles/springmvc_jsx-rs)
+- [java 利用JAX-RS快速开发RESTful 服务](http://www.cnblogs.com/yjmyzz/p/javaee-jax-rs-tutorial.html)
