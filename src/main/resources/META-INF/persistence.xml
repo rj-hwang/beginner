@@ -6,7 +6,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<!-- Hibernate scanning discovers all entities if not set this: -->
-		<!--<class>com.beginner.jpa.User</class>-->
+		<!--<class>com.beginner.jpa.Actorr</class>-->
 		<!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 
 		<properties>
@@ -19,7 +19,14 @@
 			<property name="hibernate.connection.pool_size" value="5"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+
+			<!-- http://xujunxiong.iteye.com/blog/2178878
+				create-drop : drop > create > drop
+				create      : drop > create
+				update      : 表不存在才 create
+				validate    : 表不存在就报错
+			-->
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
 		</properties>
 	</persistence-unit>
 </persistence>
