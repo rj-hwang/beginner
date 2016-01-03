@@ -10,9 +10,17 @@
 		<!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
 
 		<properties>
+			<!-- postgres -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/bcsystem"/>
+
+			<!-- mysql
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/bcsystem"/>
+			 -->
+
 			<property name="hibernate.connection.username" value="bcsystem"/>
 			<property name="hibernate.connection.password" value="bcsystem"/>
 
