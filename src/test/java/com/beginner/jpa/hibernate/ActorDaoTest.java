@@ -45,6 +45,7 @@ public class ActorDaoTest {
 		entityManager.getTransaction().commit();
 
 		// test
-		Assert.assertEquals(3, users.size());
+		// 注: 初始化数据文件中插入了 1 条
+		Assert.assertEquals(4, users.size());
 	}
 }

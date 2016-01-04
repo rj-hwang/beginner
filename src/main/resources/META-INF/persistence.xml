@@ -1,7 +1,8 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
 	<persistence-unit name="my-hibernate-jpa">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
@@ -26,11 +27,27 @@
 			<property name="javax.persistence.jdbc.password" value="bcsystem"/>
 
 			<!-- jap2.1 standard: Standardized schema generation and data loading
+				https://docs.oracle.com/javaee/7/tutorial/persistence-intro005.htm
 				http://www.thoughts-on-java.org/standardized-schema-generation-data-loading-jpa-2-1
-				none, create, drop-and-create, drop
+				none|create|drop-and-create|drop, default none
 			-->
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-			<property name="javax.persistence.schema-generation.scripts.create-target" value="./create.sql"/>
+			<!-- metadata|script|metadata-then-script|script-then-metadata, default metadata -->
+			<property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+			<!-- metadata|script|metadata-then-script|script-then-metadata, default metadata -->
+			<property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+			<!--<property name="javax.persistence.schema-generation.create-script-source" value="src/test/resources/create.sql"/>-->
+			<!--<property name="javax.persistence.schema-generation.drop-script-source" value="src/test/resources/drop.sql"/>-->
+
+			<!-- none|create|drop-and-create|drop, default none -->
+			<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+			<property name="javax.persistence.schema-generation.scripts.create-target" value="target/create.sql"/>
+			<property name="javax.persistence.schema-generation.scripts.drop-target" value="target/drop.sql"/>
+			<!-- default false-->
+			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+			<!--<property name="javax.persistence.schema-generation.connection" value=".."/>-->
+			<!-- 初始化数据 -->
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"/>
 
 
 			<!-- hibernate -->

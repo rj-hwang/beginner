@@ -1,0 +1,1 @@
+insert into actor(name) values ('initiator');
