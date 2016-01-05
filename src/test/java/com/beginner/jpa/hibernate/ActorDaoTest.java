@@ -35,7 +35,9 @@ public class ActorDaoTest {
 		entityManager.getTransaction().begin();
 
 		// 增
-		entityManager.persist(new Actor(ActorType.Group, "test"));
+		Actor actor = new Actor(ActorType.Group, "test");
+		entityManager.persist(actor);
+		Assert.assertNotNull(actor.getId());
 		entityManager.persist(new Actor(ActorType.User, "admin"));
 		entityManager.persist(new Actor(null, "unknown"));
 

@@ -25,6 +25,18 @@
 	</dependencies>
 	<build>
 		<finalName>beginner-jpa-hibernate</finalName>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<filtering>true</filtering>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -40,10 +52,67 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>db-postgres</id>
+			<id>db-h2</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<version>1.4.190</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<!-- http://www.h2database.com/html/cheatSheet.html -->
+				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+				<jdbc.driver>org.h2.Driver</jdbc.driver>
+				<jdbc.url>jdbc:h2:mem:bcsystem</jdbc.url>
+				<jdbc.user>bcsystem</jdbc.user>
+				<jdbc.password>bcsystem</jdbc.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>db-hsqldb</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+					<version>2.3.3</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<!-- http://www.h2database.com/html/cheatSheet.html -->
+				<hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+				<jdbc.driver>org.hsqldb.jdbc.JDBCDriver</jdbc.driver>
+				<jdbc.url>jdbc:hsqldb:mem:bcsystem</jdbc.url>
+				<jdbc.user>bcsystem</jdbc.user>
+				<jdbc.password>bcsystem</jdbc.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>db-derby</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derby</artifactId>
+					<version>10.12.1.1</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<!-- http://hsqldb.org -->
+				<hibernate.dialect>org.hibernate.dialect.DerbyTenSevenDialect</hibernate.dialect>
+				<jdbc.driver>org.apache.derby.jdbc.AutoloadedDriver</jdbc.driver>
+				<jdbc.url>jdbc:derby:target/bcsystem;create=true</jdbc.url>
+				<jdbc.user>bcsystem</jdbc.user>
+				<jdbc.password>bcsystem</jdbc.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>db-postgres</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.postgresql</groupId>
@@ -52,6 +121,13 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+			<properties>
+				<hibernate.dialect>org.hibernate.dialect.PostgreSQL94Dialect</hibernate.dialect>
+				<jdbc.driver>org.postgresql.Driver</jdbc.driver>
+				<jdbc.url>jdbc:postgresql://localhost:5432/bcsystem</jdbc.url>
+				<jdbc.user>bcsystem</jdbc.user>
+				<jdbc.password>bcsystem</jdbc.password>
+			</properties>
 		</profile>
 		<profile>
 			<id>db-mysql</id>
@@ -63,6 +139,13 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+			<properties>
+				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+				<jdbc.url>jdbc:mysql://localhost:3306/bcsystem</jdbc.url>
+				<jdbc.user>bcsystem</jdbc.user>
+				<jdbc.password>bcsystem</jdbc.password>
+			</properties>
 		</profile>
 
 		<profile>
@@ -78,6 +161,53 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+			<properties>
+				<jpa.provider>org.hibernate.jpa.HibernatePersistenceProvider</jpa.provider>
+			</properties>
+		</profile>
+		<profile>
+			<id>jpa-datanucleus</id>
+			<dependencies>
+				<!--<dependency>-->
+					<!--<groupId>org.datanucleus</groupId>-->
+					<!--<artifactId>datanucleus-accessplatform-jpa-rdbms</artifactId>-->
+					<!--<version>4.2.2</version>-->
+					<!--<scope>test</scope>-->
+				<!--</dependency>-->
+				<dependency>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>javax.persistence</artifactId>
+					<version>2.1.2</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>datanucleus-core</artifactId>
+					<version>4.1.7</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>datanucleus-api-jpa</artifactId>
+					<version>4.1.7</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>datanucleus-jpa-query</artifactId>
+					<version>4.0.5</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.datanucleus</groupId>
+					<artifactId>datanucleus-rdbms</artifactId>
+					<version>4.1.7</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<jpa.provider>org.datanucleus.api.jpa.PersistenceProviderImpl</jpa.provider>
+			</properties>
 		</profile>
 		<profile>
 			<id>jpa-openjpa</id>
