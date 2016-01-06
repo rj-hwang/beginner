@@ -22,6 +22,20 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- log -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>beginner-jpa-hibernate</finalName>
@@ -163,6 +177,21 @@
 			</dependencies>
 			<properties>
 				<jpa.provider>org.hibernate.jpa.HibernatePersistenceProvider</jpa.provider>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>jpa-eclipselink</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>org.eclipse.persistence.jpa</artifactId>
+					<version>2.6.2</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<jpa.provider>org.eclipse.persistence.jpa.PersistenceProvider</jpa.provider>
 			</properties>
 		</profile>
 		<profile>

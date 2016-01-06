@@ -37,14 +37,18 @@ public class ActorDaoTest {
 		// 增
 		Actor actor = new Actor(ActorType.Group, "test");
 		entityManager.persist(actor);
-		Assert.assertNotNull(actor.getId());
+		System.out.println("1:actor.id=" + actor.getId());
+		//Assert.assertNotNull(actor.getId());
 		entityManager.persist(new Actor(ActorType.User, "admin"));
 		entityManager.persist(new Actor(null, "unknown"));
 
 		// 查
-		List<Actor> users = entityManager.createQuery("from Actor", Actor.class).getResultList();
+		List<Actor> users = entityManager.createQuery("select a from Actor a", Actor.class).getResultList();
 
 		entityManager.getTransaction().commit();
+
+		System.out.println("2:actor.id=" + actor.getId());
+		Assert.assertNotNull(actor.getId());
 
 		// test
 		// 注: 初始化数据文件中插入了 1 条

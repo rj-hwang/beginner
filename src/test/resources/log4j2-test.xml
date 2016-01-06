@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="error">
+			<AppenderRef ref="Console"/>
+		</Root>
+		<Logger name="com.beginner" level="TRACE"/>
+
+		<!-- hibernate http://www.thoughts-on-java.org/hibernate-logging-guide/-->
+		<Logger name="org.hibernate" level="warn"/>
+		<Logger name="org.hibernate.SQL" level="TRACE"/>
+		<Logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
+		<Logger name="org.hibernate.jpa" level="debug"/>
+		<Logger name="org.hibernate.dialect" level="debug"/>
+		<Logger name="org.hibernate.engine.transaction" level="TRACE"/>
+		<Logger name="org.hibernate.hql.internal.ast.QueryTranslatorImpl" level="warn"/>
+		<Logger name="org.hibernate.pretty" level="debug"/>
+		<Logger name="org.hibernate.tool.hbm2ddl" level="debug"/>
+
+		<!-- eclipseLink -->
+		<Logger name="org.eclipse" level="debug"/>
+	</Loggers>
+</Configuration>
