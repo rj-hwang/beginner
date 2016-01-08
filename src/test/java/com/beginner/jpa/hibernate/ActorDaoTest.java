@@ -31,6 +31,29 @@ public class ActorDaoTest {
 	}
 
 	@Test
+	public void log() throws Exception {
+		System.out.println("---- begin ----");
+		entityManager.getTransaction().begin();
+
+		System.out.println("---- start insert ----");
+		// 增
+		Actor actor = new Actor(ActorType.User, "test");
+		entityManager.persist(actor);
+		System.out.println("---- end insert ------");
+
+		// 查
+		System.out.println("---- start find ----");
+		List<Actor> users = entityManager.createQuery("select a from Actor a where type=:type", Actor.class)
+				.setParameter("type", ActorType.User)
+				.getResultList();
+		Assert.assertFalse(users.isEmpty());
+		System.out.println("---- end find ------");
+
+		entityManager.getTransaction().commit();
+		System.out.println("---- end ------");
+	}
+
+	//@Test
 	public void test() throws Exception {
 		entityManager.getTransaction().begin();
 

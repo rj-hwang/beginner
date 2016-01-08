@@ -50,8 +50,8 @@
 
 			<!-- hibernate
 			<property name="hibernate.dialect" value="${hibernate.dialect}"/>
-			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.format_sql" value="true"/> -->
+			<property name="hibernate.show_sql" value="true"/> -->
+			<property name="hibernate.format_sql" value="true"/>
 
 			<!-- eclipseLink https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
 			<property name="eclipselink.logging.level.sql" value="ALL"/>
