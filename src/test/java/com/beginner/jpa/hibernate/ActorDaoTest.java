@@ -2,6 +2,7 @@ package com.beginner.jpa.hibernate;
 
 import com.beginner.jpa.Actor;
 import com.beginner.jpa.ActorType;
+import com.owlike.genson.Genson;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,14 +40,16 @@ public class ActorDaoTest {
 		// 增
 		Actor actor = new Actor(ActorType.User, "test");
 		entityManager.persist(actor);
+		System.out.println("actor=" + new Genson().serialize(actor));
 		System.out.println("---- end insert ------");
 
 		// 查
 		System.out.println("---- start find ----");
-		List<Actor> users = entityManager.createQuery("select a from Actor a where type=:type", Actor.class)
-				.setParameter("type", ActorType.User)
+		List<Actor> users = entityManager.createQuery("select a from Actor a where type=?", Actor.class)
+				.setParameter(1, ActorType.User)
 				.getResultList();
 		Assert.assertFalse(users.isEmpty());
+		System.out.println("actors=" + new Genson().serialize(users));
 		System.out.println("---- end find ------");
 
 		entityManager.getTransaction().commit();
