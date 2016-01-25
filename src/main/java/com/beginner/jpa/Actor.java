@@ -10,6 +10,8 @@ public class Actor {
 	private ActorType type;
 	private String name;
 	private BigDecimal money;
+	private boolean empty;
+	private String from;
 
 	public Actor() {
 	}
@@ -27,6 +29,23 @@ public class Actor {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public boolean isEmpty() {
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
+
+	@Column(name = "\"from\"")
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
 	@Column(length = 100, nullable = false, unique = true)

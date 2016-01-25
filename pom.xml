@@ -92,9 +92,9 @@
 				<!-- http://www.h2database.com/html/cheatSheet.html -->
 				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 				<jdbc.driver>org.h2.Driver</jdbc.driver>
-				<jdbc.url>jdbc:h2:mem:bcsystem</jdbc.url>
-				<jdbc.user>bcsystem</jdbc.user>
-				<jdbc.password>bcsystem</jdbc.password>
+				<jdbc.url>jdbc:h2:mem:my_test_db</jdbc.url>
+				<jdbc.user>tester</jdbc.user>
+				<jdbc.password>password</jdbc.password>
 			</properties>
 		</profile>
 		<profile>
@@ -111,9 +111,9 @@
 				<!-- http://www.h2database.com/html/cheatSheet.html -->
 				<hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
 				<jdbc.driver>org.hsqldb.jdbc.JDBCDriver</jdbc.driver>
-				<jdbc.url>jdbc:hsqldb:mem:bcsystem</jdbc.url>
-				<jdbc.user>bcsystem</jdbc.user>
-				<jdbc.password>bcsystem</jdbc.password>
+				<jdbc.url>jdbc:hsqldb:mem:my_test_db</jdbc.url>
+				<jdbc.user>tester</jdbc.user>
+				<jdbc.password>password</jdbc.password>
 			</properties>
 		</profile>
 		<profile>
@@ -130,9 +130,9 @@
 				<!-- http://hsqldb.org -->
 				<hibernate.dialect>org.hibernate.dialect.DerbyTenSevenDialect</hibernate.dialect>
 				<jdbc.driver>org.apache.derby.jdbc.AutoloadedDriver</jdbc.driver>
-				<jdbc.url>jdbc:derby:target/bcsystem;create=true</jdbc.url>
-				<jdbc.user>bcsystem</jdbc.user>
-				<jdbc.password>bcsystem</jdbc.password>
+				<jdbc.url>jdbc:derby:target/my_test_db;create=true</jdbc.url>
+				<jdbc.user>tester</jdbc.user>
+				<jdbc.password>password</jdbc.password>
 			</properties>
 		</profile>
 		<profile>
@@ -148,9 +148,9 @@
 			<properties>
 				<hibernate.dialect>org.hibernate.dialect.PostgreSQL94Dialect</hibernate.dialect>
 				<jdbc.driver>org.postgresql.Driver</jdbc.driver>
-				<jdbc.url>jdbc:postgresql://localhost:5432/bcsystem</jdbc.url>
-				<jdbc.user>bcsystem</jdbc.user>
-				<jdbc.password>bcsystem</jdbc.password>
+				<jdbc.url>jdbc:postgresql://localhost:5432/my_test_db</jdbc.url>
+				<jdbc.user>tester</jdbc.user>
+				<jdbc.password>password</jdbc.password>
 			</properties>
 		</profile>
 		<profile>
@@ -166,9 +166,9 @@
 			<properties>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-				<jdbc.url>jdbc:mysql://localhost:3306/bcsystem</jdbc.url>
-				<jdbc.user>bcsystem</jdbc.user>
-				<jdbc.password>bcsystem</jdbc.password>
+				<jdbc.url>jdbc:mysql://localhost:3306/my_test_db</jdbc.url>
+				<jdbc.user>tester</jdbc.user>
+				<jdbc.password>password</jdbc.password>
 			</properties>
 		</profile>
 
