@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.beginner.maven</groupId>
+	<artifactId>bom</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<m1.version>1.0-SNAPSHOT</m1.version>
+		<m2.version>2.0-SNAPSHOT</m2.version>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.beginner.maven</groupId>
+				<artifactId>m1</artifactId>
+				<version>${m1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.beginner.maven</groupId>
+				<artifactId>m2</artifactId>
+				<version>${m2.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
