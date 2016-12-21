@@ -103,4 +103,47 @@ public class TestIt {
 		String origin = "{\"str\":\"a\",\"num\":1,\"bool\":false,\"k\":null,\"array\":[{\"id\":1,\"n\":\"a\"},{\"id\":2,\"n\":\"b\"}]}";
 		Assert.assertEquals(origin, writer.toString());
 	}
+
+	@Test
+	// 如何修改一个现在有的 JsonObject
+  // http://www.adam-bien.com/roller/abien/entry/converting_a_map_string_string
+	public void modifiedJsonObject() {
+		// JsonObject API 已定义其为不可变对象，虽然其继承了 Map 接口，但这个 Map 是不允许修改，
+		// 这有点类似于 java8 的日期时间对象，已经创建就不可修改。要修改需要另辟途径。
+		JsonObject oldOne = Json.createObjectBuilder()
+				.add("id", 1)
+				.add("code", "RJ")
+				.build();
+
+		JsonObjectBuilder newOne = Json.createObjectBuilder();
+		oldOne.forEach((k, v) -> newOne.add(k, v));
+		newOne.add("name", "rj");
+
+		System.out.println(newOne.build());
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	// 修改一个现在有的 JsonObject 是不允许的
+	public void failedModifiedJsonObject() {
+		// JsonObject API 已定义其为不可变对象，虽然其继承了 Map 接口，但这个 Map 是不允许修改，
+		// 这有点类似于 java8 的日期时间类，一经创建就不可修改。
+		JsonObject oldOne = Json.createObjectBuilder()
+				.add("id", 1)
+				.add("code", "RJ")
+				.build();
+
+		oldOne.put("neeKwy", JsonValue.TRUE);
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	// 修改一个现在有的 JsonObject 是不允许的
+	public void failedModifiedJsonArray() {
+		// JsonArray API 已定义其为不可变对象，虽然其继承了 List 接口，但这个 List 是不允许修改，
+		// 这有点类似于 java8 的日期时间类，一经创建就不可修改。
+		JsonArray oldOne = Json.createArrayBuilder()
+				.add(JsonValue.TRUE)
+				.build();
+
+		oldOne.add(JsonValue.FALSE);
+	}
 }
