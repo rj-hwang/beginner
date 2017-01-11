@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <title>Promise test</title>
+</head>
+
+<body>
+  <h1>Promise 中的异常</h1>
+  then(<label><input type="radio" name="one" checked value="true">fulfilled</label><label><input type="radio" name="one" value="false">rejected</label>)
+  -
+  <input type="button" value="Test it" onclick="howToCatchErrorInPromise()"/>
+<p>
+  <strong>1.1. 当选择 fulfilled 时，控制台输出：</strong><br>
+  <pre>status=true
+1-onFulfilled result=true
+2-onFulfilled result=true
+3-onFulfilled result=undefined
+5-onFulfilled result=undefined</pre>
+</p>
+<p>
+  <strong>1.2. 当选择 rejected 时，控制台输出：</strong><br>
+  <pre>status=false
+1-onFulfilled result=false
+2-onRejected error=Error: Error in then-onFulfilled
+    at Promise.resolve.then.result (...)
+4-catch error=Error: Error in then-onRejected
+    at Promise.resolve.then.then.error (...)
+5-onFulfilled result=fromCatch</pre>
+</p>
+<p>
+  <strong>2. 代码：</strong><br>
+  <pre id="sourcePre"></pre></p>
+
+<script id="source">
+  /** then 中抛出的异常被下一个 catch 获取
+   * 加在这个 then 和 catch 之间的任何 then 都会被忽略不执行
+   */
+  function howToCatchErrorInPromise() {
+    let status = document.querySelector('[name=one]:checked').value === 'true'
+    console.log('status=%s', status)
+    Promise.resolve(status)
+      .then(result => {
+        console.log('1-onFulfilled result=%s', result)
+        if (result) return result
+        else {
+          // 在 then-onFulfilled 中抛出异常
+          // 抛出异常，该异常将是下一个 catch 的第一个参数，或者是下一个 then-onRejected 函数的第一个参数
+          throw new Error('Error in then-onFulfilled')
+        }
+      }, error => {
+        console.log('1-onRejected ignore')  // 这个 then-onRejected 永远不会执行
+      })
+      .then(result => {
+        // status = true 时才执行
+        console.log('2-onFulfilled result=%s', result)
+      }, error => {
+        // status = false 时才执行
+        console.log('2-onRejected error=%s', error)
+
+        // 在 then-onRejected 中抛出异常
+        throw new Error('Error in then-onRejected')
+      })
+      .then(result => {
+        // status = true 时才执行
+        console.log('3-onFulfilled result=%s', result)
+      })
+      .catch(error => {
+        console.log('4-catch error=%s', error)
+        return 'fromCatch' // then 或 catch 中 return 的值作为下一个 then-onFulfilled 的第一个参数
+      })
+      .then(result => {
+        // 这个 then-onFulfilled 肯定执行
+        console.log('5-onFulfilled result=%s', result)
+
+        // 这里抛出的异常由于后续再没有 then、catch 而被忽略
+        // 不过 chrome 的控制台会输出这个错误
+        throw new Error('Error but no one catch it')
+      })
+  }
+</script>
+<script>
+  document.querySelector('#sourcePre').innerHTML = document.querySelector('#source').innerHTML
+</script>
+</body>
+
+</html>

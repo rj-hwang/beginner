@@ -1,37 +1,109 @@
 <!doctype html>
 <html>
+
 <head>
-    <meta charset='utf-8'>
-    <title>Promise test</title>
+  <meta charset='utf-8'>
+  <title>Promise test</title>
 </head>
+
 <body>
-    <h1>Promise test</h1>
-    <script type="text/javascript">
-    function asyncFn(callback){
-      console.log("start asyncFn");
-      setTimeout(function(){
-        callback.call(this);
-      }, 1000);
-      console.log("end asyncFn");
-    }
+  <h1>1. Promise 中的异常</h1>
+  then(<label><input type="radio" name="one" checked value="true">resolved</label><label><input type="radio" name="one" value="false">rejected</label>)
+  -
+  <input type="button" value="Test it" onclick="howToCatchErrorInPromise()"/>
+<p>
+  <strong>1.1. 当选择 resolved 时，控制台输出：</strong><br>
+  <pre>status=true
+1-resolved result=true
+2-resolved result=true
+3-resolved result=undefined
+5-resolved result=undefined</pre>
+</p>
+<p>
+  <strong>1.2. 当选择 rejected 时，控制台输出：</strong><br>
+  <pre>status=false
+1-resolved result=false
+2-rejected error=Error: Error in then-resolved
+    at Promise.resolve.then.result (...)
+4-catch error=Error: Error in then-rejected
+    at Promise.resolve.then.then.error (...)
+5-resolved result=fromCatch</pre>
+</p>
+<script type="text/javascript">
+  function asyncFn(callback) {
+    console.log("start asyncFn");
+    setTimeout(function () {
+      callback.call(this);
+    }, 1000);
+    console.log("end asyncFn");
+  }
 
-    var p1 = new Promise(function(resolve, rejected){
-      resolve(1);
-    }).then(function(r){  // then1
-      console.log("then1.success");
-      // 如果返回的是 Promise 实例，会等待此 Promise resolved 后 then2 才会执行
-      return new Promise(function(resolve, rejected){
-        asyncFn(function(i){
-          resolve(2);
-          console.log("call callback"); // 实测 Chrome 中这行语句在 then2 前输出
-        }, 2);
-      });
-    }).then(function(r){  // then2
-      console.log("then2.success");
+  var p1 = new Promise(function (resolve, rejected) {
+    resolve(1);
+  }).then(function (r) {  // then1
+    console.log("then1.success");
+    // 如果返回的是 Promise 实例，会等待此 Promise resolved 后 then2 才会执行
+    return new Promise(function (resolve, rejected) {
+      asyncFn(function (i) {
+        resolve(2);
+        console.log("call callback"); // 实测 Chrome 中这行语句在 then2 前输出
+      }, 2);
+    });
+  }).then(function (r) {  // then2
+    console.log("then2.success");
 
-      // then 中抛出的异常自动转化为下个 then 中的 rejected 函数的参数
-      throw new Error("throw error in then2.success");
-    }).then(function(){console.log("then3.success")}, function(e){console.log("then3.error - ", e)});
-    </script>
+    // then 中抛出的异常自动转化为下个 then 中的 rejected 函数的参数
+    throw new Error("throw error in then2.success");
+  }).then(function () { console.log("then3.success") }, function (e) { console.log("then3.error - ", e) });
+</script>
+
+<script>
+  /** then 中抛出的异常被下一个 catch 获取
+   * 加在这个 then 和 catch 之间的任何 then 都会被忽略不执行
+   */
+  function howToCatchErrorInPromise() {
+    let status = document.querySelector('[name=one]:checked').value === 'true'
+    console.log('status=%s', status)
+    Promise.resolve(status)
+      .then(result => {
+        console.log('1-resolved result=%s', result)
+        if (result) return result
+        else {
+          // 在 then-resolved 中抛出异常
+          // 抛出异常，该异常将是下一个 catch 的第一个参数，或者是下一个 then-rejected 函数的第一个参数
+          throw new Error('Error in then-resolved')
+        }
+      }, error => {
+        console.log('1-rejected ignore')  // 这个 then-rejected 永远不会执行
+      })
+      .then(result => {
+        // status = true 时才执行
+        console.log('2-resolved result=%s', result)
+      }, error => {
+        // status = false 时才执行
+        console.log('2-rejected error=%s', error)
+
+        // 在 then-rejected 中抛出异常
+        throw new Error('Error in then-rejected')
+      })
+      .then(result => {
+        // status = true 时才执行
+        console.log('3-resolved result=%s', result)
+      })
+      .catch(error => {
+        console.log('4-catch error=%s', error)
+        return 'fromCatch' // then 或 catch 中 return 的值作为下一个 then-resolved 的第一个参数
+      })
+      .then(result => {
+        // 这个 then-resolved 肯定执行
+        console.log('5-resolved result=%s', result)
+
+        // 这里抛出的异常由于后续再没有 then、catch 而被忽略
+        // 不过 chrome 的控制台会输出这个错误
+        throw new Error('Error but no one catch it')
+      })
+  }
+</script>
 </body>
+
 </html>
