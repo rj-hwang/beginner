@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+  <!--<include resource="logback-base.xml"/>-->
+  <property name="LOG_FILE" value="app.log"/>
+  <!--
+    %d|%date{pattern}  输出日志的时间信息，语法与 java.text.SimpleDateFormat 兼容，如 yyyy-MM-dd HH:mm:ss.SSS
+    %p|%level          输出日志级别
+    %t|%thread         输出产生日志的线程名
+    %c|%logger{length} 输出日志的logger名,参数length的功能是缩短logger名,为0表示只输出logger最右边点符号之后的字符串
+    %C|%class{length}  输出执行记录请求的调用者的全限定名。参数与%logger一样。尽量避免使用，除非执行速度不造成任何问题
+    %M|%method         输出执行日志请求的方法名，尽量避免使用，除非执行速度不造成任何问题
+    %L|%line           输出执行日志请求的行号，尽量避免使用，除非执行速度不造成任何问题
+    %r|%relative       输出从程序启动到创建日志记录的时间，单位是毫秒
+    %m|%msg            输出应用程序提供的信息
+    %n                 输出平台先关的分行符“\n”或者“\r\n”
+    %caller{depth}     输出生成日志的调用者的位置信息，整数选项表示输出信息深度，如%caller{1}可以在Console中点击类名打开链接
+    %replace(p){r, t}  p为日志内容，r是正则表达式，将p中符合r的内容替换为t，例如"%replace(%msg){'\s', ''}"
+  -->
+  <property name="CONSOLE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} %level [%thread] %logger - %msg%n"/>
+  <!--<property name="CONSOLE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} %level [%thread] %replace(%caller{1}){'\r|\n|\r\n|Caller\+0\t\sat\s',''} - %msg%n"/>-->
+  <!--格式化输出,%d:日期;%thread:线程名;%-5level：级别,从左显示5个字符宽度;%msg:日志消息;%n:换行符-->
+  <property name="FILE_LOG_PATTERN"
+            value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%line - %msg%n"/>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+      <charset>utf8</charset>
+    </encoder>
+  </appender>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <encoder>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+    </encoder>
+    <file>${LOG_FILE}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+      <maxFileSize>${MAX_FILE_SIZE:-10MB}</maxFileSize>
+      <maxHistory>${MAX_HISTORY:-0}</maxHistory>
+    </rollingPolicy>
+  </appender>
+  <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+  <root level="ERROR">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</included>

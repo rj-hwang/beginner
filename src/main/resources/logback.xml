@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="logback-base.xml"/>
+  <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+  <root level="WARN"/>
+  <!--
+    netty-xxx:
+      <logger name="io.netty" level="WARN"/>
+    reactor-netty:
+      <logger name="reactor.ipc.netty" level="WARN"/>
+      <logger name="reactor.ipc.netty.http.server.HttpServer" level="WARN"/>
+    spring-web:
+      <logger name="org.springframework.http.client.reactive" level="WARN"/>
+      <logger name="org.springframework.http.server.reactive" level="WARN"/>
+    spring-webflux:
+      <logger name="org.springframework.web.reactive" level="DEBUG"/>
+  -->
+  <logger name="com.rongjih.beginner.java.webflux.App" level="INFO"/>
+</configuration>
