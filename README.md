@@ -1,6 +1,12 @@
 # Java WebFlux Beginner
 
+## 运行
 
+```
+mvn compile exec:java
+```
+
+然后访问 <http://localhost:8081>
 
 ## 参考
 
