@@ -60,4 +60,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <!-- exec:java -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <configuration>
+          <mainClass>com.rongjih.beginner.java.webflux.App</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
