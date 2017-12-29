@@ -18,6 +18,7 @@
     <junit.jupiter.version>5.0.2</junit.jupiter.version>
   </properties>
   <dependencies>
+    <!-- spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -28,12 +29,12 @@
       <artifactId>spring-webflux</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- netty -->
     <dependency>
       <groupId>io.projectreactor.ipc</groupId>
       <artifactId>reactor-netty</artifactId>
       <version>0.7.2.RELEASE</version>
     </dependency>
-
     <!-- logger -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -45,7 +46,6 @@
       <artifactId>logback-classic</artifactId>
       <version>1.2.3</version>
     </dependency>
-
     <!-- unit test -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
